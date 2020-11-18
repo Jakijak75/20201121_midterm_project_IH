@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>-8117343557459746950</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJX
+			TlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAF
+			gAdUdHlwZVRyb3dzXxAdU2VsZWN0aW9uRGV0YWlsVHlwZU5TSW5k
+			ZXhTZXTSFwsYGVxOU1JhbmdlQ291bnQQAIAG0hscHR5aJGNsYXNz
+			bmFtZVgkY2xhc3Nlc1pOU0luZGV4U2V0oh8gWk5TSW5kZXhTZXRY
+			TlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVk
+			QXJjaGl2ZXLRJidUZGF0YYABAAgAEQAaACMALQAyADcAQABGAE0A
+			VQBgAGcAagBsAG4AcQBzAHUAdwB8AIEAoQCmALMAtQC3ALwAxwDQ
+			ANsA3gDpAPIA9wEEAQcBGQEcASEAAAAAAAACAQAAAAAAAAAoAAAA
+			AAAAAAAAAAAAAAABIw==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {695, 481}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string></string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>214</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+WITH cte_price_rankings as
+	(
+	SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data 
+	)	
+SELECT * FROM cte_price_rankings
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+WITH cte_price_rankings as
+	(
+	SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data 
+	)	
+SELECT *, rank_price FROM cte_price_rankings
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+FROM house_pricing_data 
+HAVING rank_price = 11</string>
+		<string># 14. Most customers are interested in properties with three or four bedrooms. What is the difference in average prices of the properties with three and four bedrooms?
+
+SELECT bedrooms, AVG(price) as avg_price 
+FROM house_pricing_data
+WHERE bedrooms IN (3,4)
+GROUP BY bedrooms
+ORDER BY avg_price DESC</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+WITH cte_price_ranks AS
+	(
+	SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data 
+	)
+SELECT * FROM cte_price_ranks 
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+WITH cte_price_ranks AS
+	(
+	SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data 
+	)
+SELECT * FROM cte_prince_ranks 
+WHERE rank_price = 11</string>
+		<string>)
+SELECT * FROM cte_prince_ranks 
+WHERE rank_price = 11</string>
+		<string>SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data</string>
+		<string>)
+SELECT * from cte_prince_ranks 
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+
+SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+FROM house_pricing_data
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+FROM house_pricing_data</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+FROM house_pricing_data
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+SELECT *, RANK() OVER (ORDER BY price DESC)
+FROM house_pricing_data</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+SELECT *, RANK() OVER (ORDER BY price)
+FROM house_pricing_data</string>
+		<string>#b. by just looking at the column yr_renovated
+	SELECT * FROM house_pricing_data
+	WHERE yr_renovated &lt;&gt; 0</string>
+		<string>#70 different zicodes
+
+# 16. Show the list of all the properties that were renovated.
+
+SELECT * FROM house_pricing_data
+WHERE sqft_living &lt;&gt; sqft_living15 OR sqft_lot &lt;&gt; sqft_lot15</string>
+		<string># 14. Most customers are interested in properties with three or four bedrooms. What is the difference in average prices of the properties with three and four bedrooms?
+
+SELECT bedrooms, AVG(price) as avg_price 
+FROM house_pricing_data
+GROUP BY bedrooms
+ORDER BY avg_price DESC</string>
+		<string># 15. What are the different locations where properties are available in your database? (distinct zip codes)
+SELECT DISTINCT zipcode
+FROM house_pricing_data</string>
+		<string>SELECT C4.avg_price4 - C3.avg_price3
+FROM cte_3_avg_price as C3 OUTER JOIN cte_4_avg_price as C4</string>
+		<string>SELECT avg_price4 - avg_price3
+FROM cte_3_avg_price OUTER JOIN cte_4_avg_price</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.21</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

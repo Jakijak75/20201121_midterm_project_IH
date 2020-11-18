@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>-8117343557459746950</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8mb4</string>
+			<key>contentFilterV2</key>
+			<dict>
+				<key>children</key>
+				<array/>
+				<key>filterClass</key>
+				<string>groupNode</string>
+				<key>isConjunction</key>
+				<true/>
+			</dict>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJX
+			TlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAF
+			gAdUdHlwZVRyb3dzXxAdU2VsZWN0aW9uRGV0YWlsVHlwZU5TSW5k
+			ZXhTZXTSFwsYGVxOU1JhbmdlQ291bnQQAIAG0hscHR5aJGNsYXNz
+			bmFtZVgkY2xhc3Nlc1pOU0luZGV4U2V0oh8gWk5TSW5kZXhTZXRY
+			TlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVk
+			QXJjaGl2ZXLRJidUZGF0YYABAAgAEQAaACMALQAyADcAQABGAE0A
+			VQBgAGcAagBsAG4AcQBzAHUAdwB8AIEAoQCmALMAtQC3ALwAxwDQ
+			ANsA3gDpAPIA9wEEAQcBGQEcASEAAAAAAAACAQAAAAAAAAAoAAAA
+			AAAAAAAAAAAAAAABIw==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {695, 481}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>
+
+--
+-- Dumping data for table store
+--
+
+SET AUTOCOMMIT=0;
+INSERT INTO store VALUES (1,1,1,'2006-02-15 04:57:12'),
+(2,2,2,'2006-02-15 04:57:12');
+COMMIT;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+SET autocommit=@old_autocommit;
+
+
+SELECT DATE_FORMAT('2020-10-27', '%m');
+
+SELECT DATE_FORMAT("2020-10-27", 'today is month %m');
+
+SELECT DATE_FORMAT(last_update, '%Y') from sakila.actor;
+
+
+#intro to CONVERT
+SELECT CONVERT ('2020/10/27', DATE);
+
+#also works other formats
+SELECT CONVERT ('2020/10/27 15:30:52', DATE);
+
+SELECT CONVERT ('2020/10/27 15:30:52', TIME);
+# converts to SQLs default format
+
+SELECT CONVERT ('2020/10/27 15:30', DATETIME);
+
+#turning it into a string:
+SELECT CONVERT ('2020/10/27 15:30', CHAR);
+
+# if we're working with date format that SQL does not recognize (to convert into standard date format), we need to conver to string using CHAR, do some string manipulation, then submit again
+
+SELECT rental_date, return_date from sakila.rental;
+
+# super usefull to calculate a duration: datediff =&gt; gives results in dates
+SELECT rental_date, return_date, datediff(return_date, rental_date) 
+from sakila.rental;
+
+# dealing with NULL values: ISNULL function
+SELECT last_update, ISNULL(last_update) from sakila.rental; 
+
+SELECT SUM(ISNULL(last_update)) from sakila.rental;
+
+# case statements (the equivalent if conditional in python)
+SELECT CASE
+	WHEN length &lt; 60 then "short film"
+	WHEN length &gt; 120 then "long film"
+	ELSE "medium film"
+END FROM sakila.film;
+
+SELECT length, CASE
+	WHEN length &lt; 60 then "short film"
+	WHEN length &gt; 120 then "long film"
+	ELSE "medium film"
+END FROM sakila.film;
+
+SELECT length, CASE
+	WHEN length &lt; 60 then "short film"
+	WHEN length &gt; 120 then "long film"
+	ELSE "medium film"
+END AS filmlength
+FROM sakila.film;
+
+SELECT length, CASE
+	WHEN length &lt; 60 then "short film"
+	WHEN length &gt; 120 then "long film"
+	ELSE "medium film"
+END AS filmlength
+FROM sakila.film
+ORDER BY length;
+
+SELECT length, CASE
+	WHEN length &lt; 60 then "short film"
+	WHEN length &gt; 120 then "long film"
+	ELSE "medium film"
+END AS filmlength, title
+FROM sakila.film
+ORDER BY length;
+
+
+
+
+#2.03 Activity 1
+
+#Get card_id and year_issued for all gold cards.
+
+Select card_id, DATE_FORMAT(CONCAT('19', issued), '%Y')
+from bank.card
+WHERE `type` = "gold";
+
+Select card_id, SUBSTRING(issued, 1, 2)
+from bank.card
+WHERE type = 'gold';
+
+Select card_id, DATE_FORMAT(LEFT(issued, 6), '%Y')
+from bank.card
+WHERE `type` = 'gold';
+
+#When was the first gold card issued? (Year)
+
+Select card_id, DATE_FORMAT(LEFT(issued, 6), '%Y') as NY
+from bank.card
+ORDER BY NY
+LIMIT 1;
+
+#Get issue date as:
+#date_issued: 'November 7th, 1993'
+#fecha_emision: '07 of November of 1993
+
+Select card_id, DATE_FORMAT(LEFT(issued, 6), '%M %D, %Y')
+from bank.card;
+
+Select card_id, DATE_FORMAT(LEFT(issued,6), '%d of %M of %Y')
+from bank.card;
+
+#BOOM
+
+
+#Lab | SQL Queries 3
+
+#How many distinct (different) actors' last names are there?
+SELECT DISTINCT (COUNT(`last_name`))
+FROM sakila.actor;
+
+#In how many different languages where the films originally produced? (Use the column language_id from the film table)
+SELECT DISTINCT language_id
+FROM sakila.film;
+
+#How many movies were released with "PG-13" rating?
+SELECT COUNT(film_id)
+FROM sakila.film 
+WHERE rating = "PG-13";
+
+#Get 10 the longest movies from 2006.
+SELECT film_id, length
+FROM sakila.film
+WHERE release_year = 2006
+ORDER BY length DESC
+LIMIT 10;
+
+#How many days has been the company operating (check DATEDIFF() function)
+SELECT datediff(MAX(return_date), MIN(rental_date)) 
+from sakila.rental;
+
+#Show rental info with additional columns month and weekday. Get 20.
+SELECT *, 
+	DATE_FORMAT(rental_date, "%M") as rental_month,
+	DATE_FORMAT(rental_date, "%W") as rental_day,
+	DATE_FORMAT(return_date, "%M") as return_month,
+	DATE_FORMAT(return_date, "%W") as return_day
+FROM sakila.rental
+LIMIT 20;
+
+#Add an additional column day_type with values 'weekend' and 'workday' depending on the rental day of the week.
+
+SELECT *, CASE 
+	WHEN DATE_FORMAT(rental_date, "%W") = "Saturday" then "Weekend"
+	WHEN DATE_FORMAT(rental_date, "%W") = "Sunday" then "Weekend"
+	ELSE "Workday"
+END AS day_type
+FROM sakila.rental;
+
+#How many rentals were in the last month of activity?
+SELECT DATE_FORMAT (MAX(return_date), "%M, %Y")
+FROM sakila.rental;
+
+SELECT COUNT(rental_date)
+FROM sakila.rental
+WHERE DATE_FORMAT ((rental_date), "%M, %Y") = DATE_FORMAT (MAX(return_date), "%M, %Y"); 
+
+SELECT COUNT(rental_date)
+FROM sakila.rental
+WHERE DATE_FORMAT ((rental_date), "%M, %Y") = "February, 2006"; 
+
+SELECT *
+FROM sakila.rental
+ORDER BY return_date DESC;
+
+
+#END OF lab
+
+# Afternoon class
+#the IN operator
+
+SELECT * FROM sakila.film_category WHERE category_id = 5 OR category_id = 6;
+
+#is equivalent to:
+SELECT * FROM sakila.film_category WHERE category_id IN (5,6);
+
+#between operator
+SELECT * FROM sakila.film_category WHERE category_id BETWEEN 5 AND 6;
+
+SELECT * FROM sakila.actor WHERE first_name BETWEEN 'a' and 'd';
+SELECT * FROM sakila.actor WHERE first_name BETWEEN 'a' and 'dz'; #les limites sont incluses comme des mots entiers
+SELECT * FROM sakila.actor WHERE first_name NOT BETWEEN 'a' and 'dz'; #also works with NOT
+SELECT * FROM sakila.rental WHERE rental_date BETWEEN "2005-05-24" AND "2005-05-26"; #also works for date, but in the absence of a full timestampe, it will select midnight, so we're 
+
+#One way to fix it would be to put the time stamp, another way, would be to convert the dates:
+SELECT * FROM sakila.rental WHERE CONVERT(rental_date, DATE) BETWEEN "2005-05-24" AND "2005-05-26";
+#Basically, converting to date replces the timestamp by midnight, because the default timestamp on SQL is midnight
+#WE just demonstrated that the between operator is inclusive
+
+#like operator
+# the "_" means exactly ONE character
+# the "%" means any number of characters
+
+SELECT * FROM sakila.actor WHERE first_name like "a%";
+SELECT * FROM sakila.actor WHERE first_name like "a_";
+SELECT * FROM sakila.actor WHERE first_name like "a___";
+SELECT * FROM sakila.actor WHERE first_name like "a___%"; #returns all names that start with a and have at least 4 charcters in total
+SELECT * FROM sakila.actor WHERE first_name like "___%"; # returns all names that are at least 3 charcters long
+
+#Regular Expressions
+SELECT * from sakila.actor WHERE first_name REGEXP 'atal'; #every name that contains in whichever position this "atal";
+SELECT * from sakila.actor WHERE first_name REGEXP '[atal]'; #any name that contains any of those letters. When using brackets, everything inside is part of a list that requires no punctiation
+SELECT * from sakila.actor WHERE first_name REGEXP '^[pe]'; # this ^ charchter means staerts with
+SELECT * from sakila.actor WHERE first_name REGEXP '^[^pe]'; # gives everything except 
+SELECT * from sakila.actor WHERE first_name REGEXP "^[h-z]"; # all first names that start with anything between h and z
+
+#you use regular expression a lot in data cleaning
+
+#Group by
+
+
+
+
+SELECT * FROM sakila.film;
+
+SELECT rating, AVG(length) as avg_length 
+FROM sakila.film
+GROUP BY `rating`;
+
+SELECT rating, MIN(length) as min_length 
+FROM sakila.film
+GROUP BY `rating`;
+
+SELECT rating, COUNT(film_id)
+FROM sakila.film
+GROUP BY rating;
+
+#20201027_Checking for understanding AFTERNOON
+#data_2.04_activities
+
+#2.04 Activity 1
+
+#Get different card types.
+SELECT DISTINCT type
+FROM card;
+
+#Get transactions in the first 15 days of 1993.
+SELECT * FROM bank.trans 
+WHERE CONVERT (date, DATE) BETWEEN "1993-01-01" AND "1993-01-15";
+
+#Get all running loans
+#Skipping the rest of the activities
+
+select * from bank.district
+where a3 like 'north%M%';
+
+select * from bank.district
+where a3 like 'north_M%';
+
+select * from bank.district
+where a2 regexp '^ch';
+
+#Afternoon LAB
+#Lab | SQL Queries 4
+
+#Get film ratings.
+SELECT DISTINCT rating
+FROM film;
+
+#Get release years.
+SELECT DISTINCT release_year
+FROM film;
+
+#Get all films with ARMAGEDDON in the title.
+SELECT *
+FROM film
+WHERE title LIKE "%ARMAGEDDON%";
+
+#Get all films with APOLLO in the title
+SELECT *
+FROM film
+WHERE title LIKE "%APOLLO%";
+
+
+#Get all films which title ends with APOLLO.
+SELECT *
+FROM film 
+WHERE title LIKE "%APOLLO"; 
+
+#Get all films with word DATE in the title.
+SELECT *
+FROM film 
+WHERE title LIKE "%DATE%";
+
+#Get 10 films with the longest title.
+SELECT *, LENGTH(title) 
+FROM film
+ORDER BY LENGTH(title) DESC
+LIMIT 10;
+
+#Get 10 the longest films.
+SELECT *
+FROM film
+ORDER BY length DESC
+LIMIT 15;
+
+#How many films include Behind the Scenes content?
+SELECT COUNT(*)
+FROM film
+WHERE special_features LIKE "%Behind the Scenes%";
+
+
+#List films ordered by release year and title in alphabetical order
+SELECT *
+FROM film 
+ORDER BY title AND release_year;
+
+# END OF FIRST LAB
+
+
+#Second lab: https://github.com/ironhack-labs/lab-sql-basics
+#Lab | SQL basics (selection and aggregation)
+
+#Query 1
+#Get the id values of the first 5 clients from district_id with a value equals to 1.
+SELECT *
+FROM client
+WHERE district_id = 1 
+ORDER BY client_id
+LIMIT 5;
+
+#Query 2
+#In the client table, get an id value of the last client where the district_id equals to 72
+
+
+#20201028 Morning class
+# Each table has a Primary Key (see christina's slides for explanations) and at least one Foreign Key (see christina's slides)
+# relationships: 1 to 1, 1 to many, many to many
+
+# Data integrity (ensuring the accuracy and consistency of data over its entire lifecycle)
+# Entity integrity (each table must have a primary key. Accordingly, items must be unique and not NULL
+# Referential Integrity: 1. primary keys must be complete for all possible record values, in other words: 2. Foreign keys CANNOT take on any values which are defined as a primaty key in the respective item table
+# Domain Integrity: All values inside a column MUST be of the same type
+
+#Anomalies: happen when the 4 integrities are not respected
+	# INSERT anomalies: fields of the record don't match
+	# UPDATE anomalies: updating a value which affects several tables / records
+	# DELETE anomalies: deleting a record leads to a loss of data
+	
+# Data normalization : a concept that encompasses all of the above # Process to reduce data redundancy and improve data integrity
+	# "First normal form" = 1. all tables have a primary key; 2. No column has more than one value written in it; 3. No columns has no values
+	# "Second normal form" = Everything within the First normal form + no partial dependencies betwen columns
+	# "Third normal form" = same concept as the second, except applies to all columns, not just keys
+	
+
+#20201028 - CHECK FOR UNDERSDTANDING 1 &amp; 2
+# https://github.com/ironhack-edu/data_2.05_activities
+
+# Introduction to action queries 
+	#queries that can actually edit the data 
+
+use bank;
+
+#we will be creating a test table 
+
+DROP TABLE IF EXISTS test; # otherwise we get a message if the table already exists
+
+CREATE TABLE test
+SELECT * FROM `account`; #a table must have at least 1 columns. When you run this, you also see nothing, but it updates the database and the newly created table appears to the left
+
+DROP TABLE test;
+
+CREATE TABLE test
+SELECT * FROM `account`
+LIMIT 0; #would just give us the structur witout the data
+
+# I can also create my table from structure, but I would need to intput th e data types as well
+# check slides for different data types, eg: CHAR(size), VARCHAR(maxsize), TEXT, INT, FLOAT, DATE (Format: YYYY-MM-DD), DATETME (Format: YYYY-MM-DD hh:mm:ss)
+
+DROP TABLE IF EXISTS test2;
+
+CREATE TABLE test2 (
+id int,
+name varchar(20)
+);
+
+DROP TABLE IF EXISTS test3;
+
+CREATE TABLE test3 (
+id int UNIQUE NOT NULL,
+name varchar(20) DEFAULT NULL,
+testcol int UNIQUE NOT NULL,
+CONSTRAINT PRIMARY KEY(id)
+); 
+# order is: name of column, type, UNIQUE / DEFAULT (unique values or not), NULL / NOT NULL (do we accept null values), and the last command is for defining keys
+
+#looking at foreign keys now:
+CREATE TABLE IF NOT EXISTS district_demo(
+district_id int UNIQUE NOT NULL,
+name varchar(20) DEFAULT NULL,
+CONSTRAINT PRIMARY KEY (district_id)
+);
+
+DROP TABLE account_demo;
+
+CREATE TABLE IF NOT EXISTS account_demo(
+account_id int UNIQUE NOT NULL,
+district_id int DEFAULT NULL,
+status varchar(20) DEFAULT NULL,
+CONSTRAINT PRIMARY KEY (account_id),
+CONSTRAINT FOREIGN KEY (district_id) REFERENCES district_demo (district_id) #when assigning a foreign key, always connect to the primary key table
+);
+
+#populating those tables
+INSERT INTO district_demo VALUES (1, "Kreuzberg");
+INSERT INTO district_demo VALUES (2, "Moabit"), (3, "Tegel");
+
+INSERT INTO account_demo VALUES (1, 1, "Green");
+INSERT INTO account_demo VALUES (2, 4, "Red");
+
+#deleting records in tables
+DELETE FROM district_demo WHERE district_id = 3;
+DELETE FROM district_demo WHERE district_id = 1; #we get an error for this because the record is tied as a foreign key in another table;
+
+DELETE FROM account_demo; #when we don't use "WHERE", it just emties the table
+
+DELETE FROM district_demo WHERE district_id = 1;
+
+DROP TABLE account_demo, test; 
+
+#mofying datables
+ALTER TABLE district_demo DROP COLUMN name;
+ALTER TABLE district_demo RENAME TO dsitrict_test;
+ALTER TABLE district_test DROP COLUMN xxxx;
+ALTER TABLE xxx RENAME COLUMNS eeeee;
+
+ALTER TABLE xxxx ADD COLUMN xxxx int;
+ALTER TABLE xxx MODIFY xxxx float; 
+
+#update function for modifying the content of cells
+UPDATE district_demo SET district_name = "Schoeneber"
+WHERE district_name = "Tegel";
+
+#creating tables from a CSV file
+#File + import + choose your CSV file;
+
+
+
+#20201028 - CHECK FOR UNDERSDTANDING 3 &amp; 4
+# https://github.com/ironhack-edu/data_2.05_activities
+
+# a. Use the insert command to create a new entry in the loan table with the following values (8000,8000000,930705,96396,12,8033.0,'C'). Here each element corresponds to the values in columns in the table (in the order the columns appear in the table). This might raise an error. Why ??
+
+DROP TABLE test2, test3; 
+DROP TABLE dsitrict_test;
+
+INSERT INTO loan VALUES (8000,8000000,930705,96396,12,8033.0,'C');
+
+SELECT * FROM loan
+WHERE loan_id = 8000;
+# doesn't raise an error but interestingly enough, loan_id is not defined as a primary key
+
+DELETE FROM loan where loan_id = 8000;
+
+DELETE FROM account WHERE account_id = 11382; 
+
+
+#starting Lab
+#https://github.com/ironhack-labs/lab-sql-5
+
+#Drop column picture from staff
+ALTER TABLE staff DROP COLUMN picture;
+
+#A new person is hired to help Jon. Her name is TAMMY SANDERS, and she is a customer. Update the database accordingly.
+SELECT * FROM customer
+WHERE last_name = "SANDERS" AND first_name = "TAMMY";
+
+#75	2	TAMMY	SANDERS	TAMMY.SANDERS@sakilacustomer.org	79	1	2006-02-14 22:04:36	2006-02-15 04:57:20;
+INSERT INTO staff VALUES (3, "Tammy", "Sanders", 79, "TAMMY.SANDERS@sakilacustomer.org", 2, 1, "Tam", NULL, "2006-02-15 04:57:20");
+
+#Add rental for movie "Academy Dinosaur" by Charlotte Hunter from Mike Hillyer at Store 1 today.
+SELECT * FROM rental
+LIMIT 1;
+
+	#1	2005-05-24 22:53:30	367	130	2005-05-26 22:04:30	1	2006-02-15 21:30:53
+	SELECT * FROM film
+	WHERE title = "Academy Dinosaur";
+
+	SELECT * FROM rental
+	ORDER BY rental_id DESC
+	LIMIT 1;
+	
+	SELECT * FROM inventory
+	WHERE film_id = 1;
+	
+	SELECT * FROM customer
+	WHERE last_name = "Hunter";
+
+	#rental table structure = rental_id, rental_date, inventory_id, customer_id, return_date, staff_id, last_update
+	INSERT INTO rental VALUES (16050, "2006-02-15", 3, 130, NULL, 1, "2006-02-15"); 
+	
+#Delete non-active users, but first, create a backup table deleted_users to store customer_id, email, and the date the user was deleted
+
+CREATE TABLE deleted_users 
+SELECT * FROM customer 
+WHERE active = 0;
+
+DELETE FROM customer WHERE active = 0;
+
+SELECT customer_id
+FROM deleted_users; 
+	
+
+#20201029_Afternoon lesson	
+#https://my.ironhack.com/lms/courses/course-v1:IRONHACK+DAFT+202010_BER2/units/ironhack-course-chapter_1-sequential_2-vertical_3
+
+#GROUP BY REMINDER
+SELECT type, avg(balance) as avg_balance 
+FROM trans
+GROUP BY type;
+
+select type, operation, round(avg(balance), 2) as avg_balance
+FROM bank.trans
+GROUP BY type, operation
+ORDER BY type, operation; 
+
+select type, operation, round(avg(balance), 2) as avg_balance
+FROM bank.trans
+WHERE operation &lt;&gt; " " # also works with "WHERE NOT operation = " "
+GROUP BY type, operation
+ORDER BY type, operation; 
+
+
+select type, operation, round(avg(balance), 2) as avg_balance
+FROM bank.trans
+WHERE operation &lt;&gt; " "
+GROUP BY type, operation
+ORDER BY type, operation; 
+
+#intro to the "having" clause
+
+select type, operation, round(avg(balance), 2) as avg_balance
+FROM bank.trans
+WHERE operation &lt;&gt; " "
+GROUP BY type, operation
+HAVING avg_balance &gt; 40000 
+ORDER BY type, operation; 
+
+#'where' wouldn't work in the above because where is performed before group by. 
+
+select type, operation, round(avg(balance), 2) as avg_balance
+FROM bank.trans
+WHERE operation &lt;&gt; " "
+GROUP BY type, operation
+HAVING avg_balance BETWEEN 40000 and 50000
+ORDER BY type, operation; 
+
+#"Having" is for the aggregated columns that come out of the group by clause. Where is for pre-existing columns
+
+select type, operation, round(avg(balance), 2) as avg_balance
+FROM bank.trans
+WHERE operation &lt;&gt; " "
+GROUP BY type, operation
+HAVING avg_balance &gt; 40000 
+ORDER BY type, operation; 
+
+#Other method similar to group by but for a different purpose:
+select *, avg(balance) over (partition by type) as avg_balance
+from bank.trans; 
+#so basically like group by but repeated everywhere without grouping the data
+
+#Do the same with loan for average amount by duration:
+select *, avg(amount) over (partition by duration) as avg_amount
+from bank.loan;
+
+#ranking with a partition
+select loan_id, account_id, status, amount, rank() over (partition by status order by amount) as rankcol
+from bank.loan;
+
+#different type of ranking
+select loan_id, account_id, status, amount, 
+rank() over (partition by status order by amount) as rankcol,
+dense_rank() over (partition by status order by amount) as denserank,
+row_number() over (partition by status order by amount) as rownumber
+from bank.loan;
+
+#starting LAB7
+#https://github.com/ironhack-labs/lab-sql-7
+
+#1. In the table actor, which are the actors whose last names are not repeated? For example if you would sort the data in the table actor by last_name, you would see that there is Christian Arkoyd, Kirsten Arkoyd, and Debbie Arkoyd. These three actors have the same last name. So we do not want to include this last name in our output. Last name "Astaire" is present only one time with actor "Angelina Astaire", hence we would want this in our output list;
+
+
+SELECT last_name, COUNT(last_name) as cln
+FROM actor
+GROUP BY last_name
+HAVING cln = 1;
+
+#2 Which last names appear more than once? We would use the same logic as in the previous question but this time we want to include the last names of the actors where the last name was present more than once
+SELECT last_name, COUNT(last_name) as cln
+FROM actor
+GROUP BY last_name
+HAVING cln &gt; 1;
+
+#3 Using the rental table, find out how many rentals were processed by each employee.
+
+SELECT staff_id, COUNT(rental_id) 
+FROM rental
+GROUP BY staff_id;
+
+#4 Using the film table, find out how many films were released each year.
+SELECT release_year, COUNT(film_id)
+FROM film
+GROUP BY release_year;
+
+#5 Using the film table, find out for each rating how many films were there.
+SELECT rating, COUNT(film_id)
+FROM film
+GROUP BY rating; 
+
+#6 What is the mean length of the film for each rating type. Round off the average lengths to two decimal places
+SELECT rating, COUNT(film_id), ROUND(AVG(length), 2)
+FROM film
+GROUP BY rating; 
+
+#7 Which kind of movies (rating) have a mean duration of more than two hours?
+SELECT rating, COUNT(film_id), ROUND(AVG(length), 2) as rln
+FROM film
+GROUP BY rating
+HAVING rln &gt; 120; 
+
+#ACTIVITY: https://github.com/ironhack-edu/data_2.07_activities/blob/master/2.07_activity_1.md
+#1 Find out how many cards of each type have been issued.
+SELECT type, COUNT(card_id)
+FROM card
+GROUP BY type;
+
+#2 Find out how many customers there are by the district.
+SELECT district_id, COUNT(client_id)
+FROM client
+GROUP BY `district_id`
+ORDER BY district_id;
+
+#3 Find out average transaction value by type.
+SELECT type, round(AVG(amount), 2)
+FROM trans
+GROUP BY type;
+
+#ACTIVITY https://github.com/ironhack-edu/data_2.07_activities/blob/master/2.07_activity_3.md
+
+#1 Find the districts with more than 100 clients.
+SELECT district_id, COUNT(client_id) as CIC
+FROM client
+GROUP BY district_id
+HAVING CIC &gt; 100;
+
+#2 Find the transactions (type, operation) with a mean amount greater than 10000.
+SELECT type, operation, avg(amount) as avam
+FROM trans
+GROUP BY type, operation
+HAVING avam &gt; 10000; 
+
+##### CLASS: JOIN TABLES #####
+# left table is the one i write first, right table the one I write second, all they need is a column in common (typically primary/foreign key)
+# different types of join: 
+	# inner join = only records (rows) that are present in both tables 
+	# left join = only rows from the left table, if not common to the right table we would get nulls
+	# right join = all the records in right table, with null in the left table if no corresponding values
+
+
+#ACTIVITY: https://github.com/ironhack-edu/data_2.08_activities/blob/master/2.08_activity_1.md
+
+#1 Rank districts by different variables.
+SELECT *, rank() over (order by A4)
+FROM district; 
+
+</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>214</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+WITH cte_price_rankings as
+	(
+	SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data 
+	)	
+SELECT * FROM cte_price_rankings
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+WITH cte_price_rankings as
+	(
+	SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data 
+	)	
+SELECT *, rank_price FROM cte_price_rankings
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+FROM house_pricing_data 
+HAVING rank_price = 11</string>
+		<string># 14. Most customers are interested in properties with three or four bedrooms. What is the difference in average prices of the properties with three and four bedrooms?
+
+SELECT bedrooms, AVG(price) as avg_price 
+FROM house_pricing_data
+WHERE bedrooms IN (3,4)
+GROUP BY bedrooms
+ORDER BY avg_price DESC</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+WITH cte_price_ranks AS
+	(
+	SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data 
+	)
+SELECT * FROM cte_price_ranks 
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+WITH cte_price_ranks AS
+	(
+	SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data 
+	)
+SELECT * FROM cte_prince_ranks 
+WHERE rank_price = 11</string>
+		<string>)
+SELECT * FROM cte_prince_ranks 
+WHERE rank_price = 11</string>
+		<string>SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+	FROM house_pricing_data</string>
+		<string>)
+SELECT * from cte_prince_ranks 
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+
+
+SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+FROM house_pricing_data
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+FROM house_pricing_data</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+SELECT *, RANK() OVER (ORDER BY price DESC) AS rank_price
+FROM house_pricing_data
+WHERE rank_price = 11</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+SELECT *, RANK() OVER (ORDER BY price DESC)
+FROM house_pricing_data</string>
+		<string># 17. Provide the details of the property that is the 11th most expensive property in your database.
+SELECT *, RANK() OVER (ORDER BY price)
+FROM house_pricing_data</string>
+		<string>#b. by just looking at the column yr_renovated
+	SELECT * FROM house_pricing_data
+	WHERE yr_renovated &lt;&gt; 0</string>
+		<string>#70 different zicodes
+
+# 16. Show the list of all the properties that were renovated.
+
+SELECT * FROM house_pricing_data
+WHERE sqft_living &lt;&gt; sqft_living15 OR sqft_lot &lt;&gt; sqft_lot15</string>
+		<string># 14. Most customers are interested in properties with three or four bedrooms. What is the difference in average prices of the properties with three and four bedrooms?
+
+SELECT bedrooms, AVG(price) as avg_price 
+FROM house_pricing_data
+GROUP BY bedrooms
+ORDER BY avg_price DESC</string>
+		<string># 15. What are the different locations where properties are available in your database? (distinct zip codes)
+SELECT DISTINCT zipcode
+FROM house_pricing_data</string>
+		<string>SELECT C4.avg_price4 - C3.avg_price3
+FROM cte_3_avg_price as C3 OUTER JOIN cte_4_avg_price as C4</string>
+		<string>SELECT avg_price4 - avg_price3
+FROM cte_3_avg_price OUTER JOIN cte_4_avg_price</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>8.0.21</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
