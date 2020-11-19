@@ -648,9 +648,9 @@
           <datasource-dependencies datasource='federated.1p6arpy1nkryd3108sqjy0ds3diu'>
             <column caption='Bedrooms' datatype='integer' name='[bedrooms]' role='measure' type='quantitative' />
             <column-instance column='[bedrooms]' derivation='None' name='[none:bedrooms:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[yr_built]' derivation='None' name='[none:yr_built:qk]' pivot='key' type='quantitative' />
             <column caption='Price' datatype='integer' name='[price]' role='measure' type='quantitative' />
             <column-instance column='[price]' derivation='Sum' name='[sum:price:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[yr_built]' derivation='Year-Trunc' name='[tyr:yr_built:qk]' pivot='key' type='quantitative' />
             <column caption='Yr Built' datatype='integer' name='[yr_built]' role='dimension' type='quantitative' />
           </datasource-dependencies>
           <filter class='categorical' column='[federated.1p6arpy1nkryd3108sqjy0ds3diu].[none:bedrooms:ok]'>
@@ -666,7 +666,7 @@
         </view>
         <style />
         <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
             <view>
               <breakdown value='auto' />
             </view>
@@ -674,7 +674,7 @@
           </pane>
         </panes>
         <rows>[federated.1p6arpy1nkryd3108sqjy0ds3diu].[sum:price:qk]</rows>
-        <cols>[federated.1p6arpy1nkryd3108sqjy0ds3diu].[tyr:yr_built:qk]</cols>
+        <cols>[federated.1p6arpy1nkryd3108sqjy0ds3diu].[none:yr_built:qk]</cols>
       </table>
       <simple-id uuid='{1FF5B398-9B36-4145-BFAC-DCA553F20C9A}' />
     </worksheet>
@@ -852,7 +852,7 @@
     </worksheet>
   </worksheets>
   <windows source-height='30'>
-    <window class='worksheet' maximized='true' name='Question 2'>
+    <window class='worksheet' name='Question 2'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -932,7 +932,7 @@
       </viewpoint>
       <simple-id uuid='{6647F1AF-A833-409B-8803-90BA686A6E1D}' />
     </window>
-    <window class='worksheet' name='Question 5'>
+    <window class='worksheet' maximized='true' name='Question 5'>
       <cards>
         <edge name='left'>
           <strip size='160'>
