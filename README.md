@@ -1,1 +1,1 @@
-# 20201121_midterm_project_IH
+# Data Science Project - House pricing - Linear regression
